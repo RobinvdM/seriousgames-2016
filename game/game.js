@@ -178,31 +178,36 @@ var game = {
     },
     spreadDisease() {
         if (game.stats.invectedNodes.length == 0) {
-            // Choose random node
-            var n = game.nodes[
-                Math.floor(Math.random() * game.nodes.length)
-            ].index;
-            
-            game.d3.node[0][n].setAttribute('class', 'node infected');
+            do {
+                // Choose random node
+                var n = game.nodes[
+                    Math.floor(Math.random() * game.nodes.length)
+                ].index;
+
+                var node = game.d3.node[0][n];
+            } while (node.className.baseVal.indexOf('hidden') > 0);
+
+            node.setAttribute('class', 'node infected');
             
             game.stats.invectedNodes.push(n);
+
         } else {
             game.stats.invectedNodes.forEach(function(element) {
-                game.links.some(function(e) {
-                    if (e.source.index != element && e.target.index != element) return;
+                for (var i = game.links.length - 1; i >= 0; i--) {
+                    var e = game.links[i]
+
+                    if (e.source.index != element && e.target.index != element) continue;
 
                     var newInfection = e.source.index != element ? e.source.index : e.target.index;
 
-                    if (game.stats.invectedNodes[newInfection] !== undefined) return;
+                    if (game.stats.invectedNodes[newInfection] !== undefined) continue;
 
                     game.d3.node[0][newInfection].setAttribute('class', 'node infected');
 
-                    console.log(newInfection);
-
                     game.stats.invectedNodes.push(newInfection);
 
-                    return true;
-                });
+                    break;
+                }
             });
         }
     }
