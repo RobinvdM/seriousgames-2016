@@ -13,12 +13,35 @@ body {
 }
 
 .node {
-  cursor: move;
-  fill: #ccc;
-  stroke: #000;
-  stroke-width: 1.5px;
+    fill: #ccc;
+    stroke: #000;
+    stroke-width: 1.5px;
+    cursor: pointer;
+
+    transition: fill, stroke-width 0.2s ease-in;
+}
+.node:hover {
+    fill: #7FD294;
+    stroke-width: 3px;
 }
 
 .node.fixed {
-  fill: #f00;
+    fill: #f00;
+}
+.node.hidden {
+    display: none;
+}
+.node.infected {
+    fill: red;
+}
+
+#vaccsLeft {
+    border: 4px solid #ff7f09;
+    background: #FEF6ED;
+    font-size: 20px;
+    text-align: center;
+    padding: 8px;
+}
+#vaccsLeft:empty {
+    display: none;
 }
