@@ -157,20 +157,20 @@ var game = {
             game.setVaccsLeft(game.stats.vaccsLeft - 1);
 
         // Remove node if not infected
-        if (game.stats.invectedNodes[n] === undefined) {
-            game.d3.node[0][n.index].setAttribute('class', 'node hidden');
+        if (game.stats.invectedNodes.indexOf(n.index) > -1) return;
 
-            var links = [];
-            game.links.forEach(function(e) {
-                if (e.source.index == n.index) return;
-                if (e.target.index == n.index) return;
+        game.d3.node[0][n.index].setAttribute('class', 'node hidden');
 
-                links.push(e);
-            });
-            game.links = links;
+        var links = [];
+        game.links.forEach(function(e) {
+            if (e.source.index == n.index) return;
+            if (e.target.index == n.index) return;
 
-            game.render();
-        }
+            links.push(e);
+        });
+        game.links = links;
+
+        game.render();
 
         // Spread disease when no vaccs are left
         if (game.stats.vaccsLeft == 0)
@@ -190,17 +190,16 @@ var game = {
             node.setAttribute('class', 'node infected');
             
             game.stats.invectedNodes.push(n);
-
         } else {
             game.stats.invectedNodes.forEach(function(element) {
-                for (var i = game.links.length - 1; i >= 0; i--) {
-                    var e = game.links[i]
+                loop: for (var i = game.links.length - 1; i >= 0; i--) {
+                    var e = game.links[i];
 
-                    if (e.source.index != element && e.target.index != element) continue;
+                    if (e.source.index != element && e.target.index != element) continue loop;
 
                     var newInfection = e.source.index != element ? e.source.index : e.target.index;
 
-                    if (game.stats.invectedNodes[newInfection] !== undefined) continue;
+                    if (game.stats.invectedNodes.indexOf(newInfection) > -1) continue loop;
 
                     game.d3.node[0][newInfection].setAttribute('class', 'node infected');
 
