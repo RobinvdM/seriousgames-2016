@@ -1,4 +1,4 @@
-{
+graph_miserables = {
   "nodes":[
     {"name":"Myriel","group":1},
     {"name":"Napoleon","group":1},

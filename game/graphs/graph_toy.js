@@ -1,0 +1,35 @@
+graph_toy = {
+    nodes: [
+        {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {},
+    ],
+    links: [
+        {"source":  0, "target":  1},
+        {"source":  1, "target":  7},
+        {"source":  2, "target":  6},
+        {"source":  1, "target":  3},
+        {"source":  3, "target":  2},
+        {"source":  8, "target":  4},
+        {"source":  18, "target":  1},
+        {"source":  7, "target":  15},
+        {"source":  13, "target":  19},
+        {"source":  4, "target":  20},
+        {"source":  20, "target":  8},
+        {"source":  0, "target":  16},
+        {"source":  5, "target":  0},
+        {"source":  5, "target":  10},
+        {"source":  6, "target":  12},
+        {"source":  5, "target":  17},
+        {"source":  6, "target":  19},
+        {"source":  1, "target":  12},
+        {"source":  6, "target":  19},
+        {"source":  15, "target":  14},
+        {"source":  6, "target":  8},
+        {"source":  7, "target":  12},
+        {"source":  9, "target":  17},
+        {"source":  4, "target": 11},
+        {"source":  9, "target": 8},
+        {"source": 10, "target": 9},
+        {"source": 11, "target": 12},
+        {"source": 12, "target": 10}
+    ]
+};

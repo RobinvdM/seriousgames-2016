@@ -1,4 +1,4 @@
-{
+graph_zachary = {
  "directed": false, 
  "graph": [
   [
@@ -459,4 +459,4 @@
   }
  ], 
  "multigraph": false
-}
+};

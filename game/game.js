@@ -1,41 +1,9 @@
 var game = {
-    nodes: [
-        {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {},
-    ],
-    links: [
-        {"source":  0, "target":  1},
-        {"source":  1, "target":  7},
-        {"source":  2, "target":  6},
-        {"source":  1, "target":  3},
-        {"source":  3, "target":  2},
-        {"source":  8, "target":  4},
-        {"source":  18, "target":  1},
-        {"source":  7, "target":  15},
-        {"source":  13, "target":  19},
-        {"source":  4, "target":  20},
-        {"source":  20, "target":  8},
-        {"source":  0, "target":  16},
-        {"source":  5, "target":  0},
-        {"source":  5, "target":  10},
-        {"source":  6, "target":  12},
-        {"source":  5, "target":  17},
-        {"source":  6, "target":  19},
-        {"source":  1, "target":  12},
-        {"source":  6, "target":  19},
-        {"source":  15, "target":  14},
-        {"source":  6, "target":  8},
-        {"source":  7, "target":  12},
-        {"source":  9, "target":  17},
-        {"source":  4, "target": 11},
-        {"source":  9, "target": 8},
-        {"source": 10, "target": 9},
-        {"source": 11, "target": 12},
-        {"source": 12, "target": 10}
-    ],
     elem: null,
     config: {
         width: 960,
-        height: 500
+        height: 500,
+        difficulty: 1
     },
     levels: {
         1: {
@@ -66,7 +34,15 @@ var game = {
     },
     init() {
         game.elem = $('#game');
-
+        $('#intro .level').click(function() {
+            var graph_name = $(this).data('graph');
+            $('#intro').hide();
+            game.initLevel(graph_name);
+        });
+        $('#leaderboard').click(function() {
+            $('#intro').hide();
+            game.leaderBoard.display();
+        });
         game.initDifficulty();
     },
     resetGameState(className) {
@@ -75,24 +51,23 @@ var game = {
     },
     initDifficulty() {
         game.resetGameState('difficulty');
-        game.elem.html('<h1>To start, choose difficulty.</h1>');
+        $('#intro').show();
+        game.elem.html('');
 
-        var list = $('<ul>');
+        var list = $('#intro #difficultyList');
+        list.html('');
 
         $.each(game.levels, function(i, level) {
             list.append(
-                '<li data-level="' + i + '">' + 
+                '<button data-level="' + i + '">' +
                     level.label +
-                '</li>'
+                '</button>'
             );
         });
-        game.elem.append(list);
 
-        $('ul li', game.elem).click(function(event) {
+        $('#difficultyList button').click(function(event) {
             var level = $(event.target).data('level');
-
-            game.reset(level);
-            game.initD3(level);
+            game.config.difficulty = level;
         });
     },
     setVaccsLeft(n) {
@@ -100,15 +75,18 @@ var game = {
 
         $('#vaccsLeft').html('<span>Vaccinations left:</span> <strong>' + n + '</strong>');
     },
-    reset(level) {
-        var level = game.levels[level];
-
+    reset() {
+        var level = game.levels[game.config.difficulty];
         game.setVaccsLeft(level.vaccinations);
     },
-    initD3(level) {
+    initD3(graph_name) {
+        var graph = game.graphs[graph_name].gen();
+        game.links = graph.links;
+        game.nodes = graph.nodes;
+
         game.resetGameState('game');
 
-        var level = game.levels[level];
+        var level = game.levels[game.config.difficulty];
 
         game.d3.force = d3.layout.force()
             .size([game.config.width, game.config.height])
@@ -123,8 +101,8 @@ var game = {
         game.d3.link = svg.selectAll(".link"),
         game.d3.node = svg.selectAll(".node");
 
-        game.d3.force.nodes(game.nodes)
-                     .links(game.links)
+        game.d3.force.nodes(graph.nodes)
+                     .links(graph.links)
                      .start();
 
         game.render();
@@ -242,5 +220,84 @@ var game = {
         alert('No more infections!');
     }
 };
+
+// LEVELS ==================
+
+game.initLevel = function(graph_name) {
+    game.reset();
+    game.initD3(graph_name);
+};
+
+
+// LEADERBOARD =============
+game.leaderBoard = {
+   KEY: 'leaderboard'
+};
+game.leaderBoard.get = function() {
+    var leaderBoard = localStorage.getItem(game.leaderBoard.KEY);
+    return JSON.parse(leaderBoard) || {};
+};
+
+game.leaderBoard.saveScore = function(username, score) {
+    var leaderBoard = game.leaderBoard.get();
+    leaderBoard[username] = _.max([leaderBoard[username], score]);
+    localStorage.setItem(game.leaderBoard.KEY, JSON.stringify(leaderBoard));
+};
+
+game.leaderBoard.display = function() {
+    game.elem.html('<h1>Leader board</h1>');
+    var scores = game.leaderBoard.get();
+    scores = _.map(scores, function(num, key) { return [num, key] });
+    scores = _.sortBy(scores, function(a) {return -a[0]});
+
+    var list = $('<ol>');
+    _.each(scores, function(score) {
+        list.append('<li><span class="username">'+
+                    score[1]+'</span> <span class="score">'
+                    +score[0]+'</span></li>');
+    });
+    game.elem.append(list);
+    game.elem.append($('<button>To main menu</button>').click(game.initDifficulty));
+};
+
+// GRAPHS ==================
+game.graphs = {}
+game.graphs.toy = {
+    description: 'This a toy graph',
+    gen: function() {return graph_toy}
+};
+
+game.graphs.karate = {
+    description: 'Zachary karate club',
+    gen: function() {return graph_zachary;}
+};
+
+game.graphs.friends = {
+    description: 'Friends',
+    gen: function() {return connected_cliques([4,5,4, 5], 0.3);}
+};
+
+game.graphs.book = {
+    description: 'Miserables',
+    gen: function() {return graph_miserables;}
+};
+
+game.graphs.tree = {
+    description: 'Tree',
+    gen: function() {
+        var graph = randomgraph.BarabasiAlbert(30, 1, 1);
+        return {'nodes': graph.nodes, 'links': graph.edges};
+    }
+};
+
+game.graphs.random = {
+    description: 'Random',
+    gen: function() {
+        var graph = randomgraph.BarabasiAlbert(30, 2, 2);
+        return {'nodes': graph.nodes, 'links': graph.edges};
+    }
+};
+
+// =========================
 
 $(game.init);

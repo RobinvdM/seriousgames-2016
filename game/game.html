@@ -4,6 +4,12 @@
     <head>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
         <script src="d3.min.js"></script>
+        <script src="underscore.js"></script>
+        <script src="graphs/graph_toy.js"></script>
+        <script src="graphs/miserables.js"></script>
+        <script src="graphs/zachary.js"></script>
+        <script src="graphs/randomgraph.js"></script>
+        <script src="graphs/cliques.js"></script>
         <script src="game.js"></script>
 
         <link href="game.css" media="all" rel="stylesheet" />
@@ -12,5 +18,17 @@
     <body>
         <div id="game"></div>
         <div id="vaccsLeft"></div>
+        <div id="intro">
+            <h1>Influenza</h1>
+            <h3>Choose difficulty:</h3>
+            <div id="difficultyList">
+            </div>
+            <a class="level" role="button" data-graph="friends"><h2>Friends</h2></a>
+            <a class="level" role="button" data-graph="karate"><h2>Karate club</h2></a>
+            <a class="level" role="button" data-graph="book"><h2>Book heroes</h2></a>
+            <a class="level" role="button" data-graph="random"><h2>Random</h2></a>
+            <a class="level" role="button" data-graph="tree"><h2>Tree</h2></a>
+            <button id="leaderboard">Leader Board</button>
+        </div>
     </body>
-</html
+</html>
