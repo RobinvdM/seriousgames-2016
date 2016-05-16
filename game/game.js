@@ -61,7 +61,8 @@ var game = {
     },
     stats: {
         vaccsLeft: 0,
-        invectedNodes: []
+        invectedNodes: [],
+        rounds: 0
     },
     init() {
         game.elem = $('#game');
@@ -135,7 +136,8 @@ var game = {
                .attr("y2", function(d) { return d.target.y; });
 
           game.d3.node.attr("cx", function(d) { return d.x; })
-                      .attr("cy", function(d) { return d.y; });
+                      .attr("cy", function(d) { return d.y; })
+                      .attr("i", function(d) { return d.index; });
         }
     },
     render() {
@@ -148,7 +150,6 @@ var game = {
                     .attr("class", "node").attr("r", 12)
                     .on("click", game.handleNodeClick);
         game.d3.node.exit().remove();
-
 
         game.d3.force.start();
     },
@@ -177,6 +178,8 @@ var game = {
             game.spreadDisease();
     },
     spreadDisease() {
+        game.stats.rounds++;
+
         if (game.stats.invectedNodes.length == 0) {
             do {
                 // Choose random node
@@ -192,23 +195,51 @@ var game = {
             game.stats.invectedNodes.push(n);
         } else {
             game.stats.invectedNodes.forEach(function(element) {
-                loop: for (var i = game.links.length - 1; i >= 0; i--) {
-                    var e = game.links[i];
+                var neighbour = game.getNeighbourNode(element);
 
-                    if (e.source.index != element && e.target.index != element) continue loop;
+                if (neighbour === null) return;
 
-                    var newInfection = e.source.index != element ? e.source.index : e.target.index;
+                game.d3.node[0][neighbour].setAttribute('class', 'node infected');
 
-                    if (game.stats.invectedNodes.indexOf(newInfection) > -1) continue loop;
-
-                    game.d3.node[0][newInfection].setAttribute('class', 'node infected');
-
-                    game.stats.invectedNodes.push(newInfection);
-
-                    break;
-                }
+                game.stats.invectedNodes.push(neighbour);
             });
+
+            if (! game.hasPossibleInfections())
+                game.end();
         }
+    },
+    getNeighbourNode(node) {
+        var neighbour = null;
+
+        for (var i = 0; i < game.links.length; i++) {
+            var e = game.links[i];
+
+            if (e.source.index != node && e.target.index != node) continue;
+
+            neighbour = e.source.index != node ? e.source.index : e.target.index;
+
+            if (game.stats.invectedNodes.indexOf(neighbour) > -1) {
+                neighbour = null;
+                continue;
+            }
+
+            break;
+        }
+
+        return neighbour;
+    },
+    hasPossibleInfections() {
+        for (var i = 0; i < game.links.length; i++) {
+            var e = game.links[i];
+
+            if (game.stats.invectedNodes.indexOf(e.source.index) < 0) return true;
+            if (game.stats.invectedNodes.indexOf(e.target.index) < 0) return true;
+        }
+
+        return false;
+    },
+    end() {
+        alert('No more infections!');
     }
 };
 
