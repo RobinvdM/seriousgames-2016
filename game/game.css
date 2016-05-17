@@ -38,7 +38,7 @@ button {
 button:hover {
     background: #BAFFC4;
 }
-button:active {
+button:focus {
     background: #BAFFC4;
 }
 button#leaderboard {
