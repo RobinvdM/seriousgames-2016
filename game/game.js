@@ -210,6 +210,8 @@ var game = {
         for (var i = 0; i < game.links.length; i++) {
             var e = game.links[i];
 
+            if (game.stats.invectedNodes.indexOf(e.source.index) < 0 && game.stats.invectedNodes.indexOf(e.target.index)) continue;
+
             if (game.stats.invectedNodes.indexOf(e.source.index) < 0) return true;
             if (game.stats.invectedNodes.indexOf(e.target.index) < 0) return true;
         }
