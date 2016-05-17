@@ -98,7 +98,7 @@ var game = {
             .linkDistance(40)
             .on("tick", tick);
 
-        var svg = d3.select("body").append("svg")
+        var svg = d3.select("#game").append("svg")
             .attr("width", game.config.width)
             .attr("height", game.config.height);
 
@@ -223,7 +223,10 @@ var game = {
         return false;
     },
     end() {
-        alert('No more infections!');
+        alert('Your score is: 999');
+        game.elem.html('');
+        $('#vaccsLeft').hide();
+        game.quiz.display();
     }
 };
 
@@ -251,12 +254,36 @@ game.initLevel = function() {
     game.initD3();
 };
 
-// AFTER GAME SCREEN ======
-
 // QUIZ ====================
 game.quiz = {}
+game.quiz.handleAnswer = function(is_correct) {
+    return function() {
+        var elem = $(this);
+        console.log(elem);
+        if (is_correct) {
+            elem.css('background-color', 'green');
+            alert('Well done!');
+        } else {
+            elem.css('background-color', 'red');
+            alert('Nah...');
+        }
+    }
+}
+
 game.quiz.display = function() {
     game.elem.hide();
+    var quiz_elem = $('#quiz');
+    quiz_elem.show();
+    var quiz = game.config.graph.quiz;
+    $('h3', quiz_elem).text(quiz.title);
+    $('.tutorial', quiz_elem).html(quiz.description);
+    $('.question', quiz_elem).html(quiz.question);
+
+    var handleAnswer = 
+
+    $('#a1', quiz_elem).html(quiz.a1).click(game.quiz.handleAnswer(quiz.correct == 1));
+    $('#a2', quiz_elem).html(quiz.a2).click(game.quiz.handleAnswer(quiz.correct == 2));
+    $('#a3', quiz_elem).html(quiz.a3).click(game.quiz.handleAnswer(quiz.correct == 3));
 }
 
 // LEADERBOARD =============
@@ -300,6 +327,7 @@ game.graphs.toy = {
         title: '',
         description: '',
         question: '',
+        correct: 1,
         a1: '',
         a2: '',
         a3: ''
@@ -314,6 +342,7 @@ game.graphs.karate = {
         title: 'Closeness',
         description: 'Description of Closeness',
         question: 'Which node has the highest closeness:',
+        correct: 1,
         a1: '<img>',
         a2: '<img>',
         a3: '<img>'
@@ -328,6 +357,7 @@ game.graphs.friends = {
         title: 'Closeness',
         description: 'Description of Closeness',
         question: 'Which node has the highest closeness:',
+        correct: 1,
         a1: '<img>',
         a2: '<img>',
         a3: '<img>'
@@ -342,6 +372,7 @@ game.graphs.book = {
         title: 'Closeness',
         description: 'Description of Closeness',
         question: 'Which node has the highest closeness:',
+        correct: 1,
         a1: '<img>',
         a2: '<img>',
         a3: '<img>'
@@ -359,6 +390,7 @@ game.graphs.tree = {
         title: 'Cycles',
         description: 'No cycles here. Cycles blah blah blah',
         question: 'How many cycles does this graph have: <img>',
+        correct: 1,
         a1: '0',
         a2: '1',
         a3: '2'
@@ -376,6 +408,7 @@ game.graphs.random = {
         title: 'Closeness',
         description: 'Description of Closeness',
         question: 'Which node has the highest closeness:',
+        correct: 1,
         a1: '<img>',
         a2: '<img>',
         a3: '<img>'
