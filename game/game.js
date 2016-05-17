@@ -2,7 +2,7 @@ var game = {
     elem: null,
     config: {
         width: 960,
-        height: 500,
+        height: 800,
         difficulty: 1
     },
     levels: {

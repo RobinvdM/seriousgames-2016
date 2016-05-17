@@ -1,11 +1,51 @@
 @import url(https://fonts.googleapis.com/css?family=Open+Sans);
+@import url(https://fonts.googleapis.com/css?family=Bangers);
 
 body {
-    background: #F8F8F8;
+    background: #008131 url(background.jpg) no-repeat 0 0;
+    background-size: cover;
     font-size: 24px;
     font-family: 'Open Sans', sans-serif;
     color: #2C2C2C;
+    text-align: center;
 }
+
+h1 {
+    font-family: 'Bangers';
+    font-size: 100px;
+    color: #fff;
+    letter-spacing: 8px;
+}
+h3 {
+
+}
+
+button {
+    background: #fff;
+    border: 0;
+    color: #3f8e53;
+    font-weight: bold;
+    border:2px solid #3f8e53;
+    border-radius: 8px;
+    padding: 8px 12px;
+    margin-right: 5px;
+    font-size: inherit;
+    font-family: inherit;
+
+    transition: background 0.2s ease-in;
+    cursor: pointer;
+}
+button:hover {
+    background: #BAFFC4;
+}
+button#leaderboard {
+    background-image: url(leaderboardIcon.png);
+    background-size: 35px;
+    background-repeat: no-repeat;
+    background-position: 10px center;
+    padding-left: 55px;
+}
+
 
 .link {
   stroke: #000;
