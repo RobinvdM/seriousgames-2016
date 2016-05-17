@@ -355,7 +355,7 @@ game.graphs.friends = {
     gen: function() {return connected_cliques([4,5,4, 5], 0.3);},
     quiz: {
         title: 'Degree Centrality',
-        description: 'A form of centrality is degree centrality. This means that the centrality of a node, or in this case a classmate, is determined by the number of connections this classmate has with other classmates. It is important to escort these classmates out of the classroom first, as they have a very high chance of hearing of your mistake and tell a lot of other classmates about it. In the following quiz, choose the nodes with the highest degree centrality.',
+        description: 'A form of centrality is degree centrality. This means that the centrality of a node, or in this case a friend, is determined by the number of connections this friend has with his friends. It is important to persuade these friends first, as they have a very high chance of being persuaded by the friend you have a fight with and are able to persuade lots of other friends. In the following quiz, choose the nodes with the highest degree centrality.',
         question: 'Which node has the highest degree centrality?',
         correct: 1,
         a1: '<img src="degreecentrality1.png" width="300" height="255">',
