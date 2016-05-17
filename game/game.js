@@ -308,8 +308,7 @@ game.graphs.toy = {
 
 game.graphs.karate = {
     title: 'Zachary karate club',
-    description: 'You got into a fight with a friend last karate lesson. He now wants to leave the karate school. You obviously don’t want to join him at the other karate school and you don’t want your other friends to join him. He can only let people join by means of mouth to mouth communication. This means he can only persuade friends from friends that he already persuaded. You on the other hand can persuade anyone who hasn’t joined him to stay at your karate school.',
-    description: 'Can you prevent your friends from leaving your karate school to join the other guy’s karate school by persuading those who have a lot of friends and prevent the persuasion from someone with little friends to someone with a lot of friends?',
+    description: 'You got into a fight with a friend last karate lesson. He now wants to leave the karate school. You obviously don’t want to join him at the other karate school and you don’t want your other friends to join him. He can only let people join by means of mouth to mouth communication. This means he can only persuade friends from friends that he already persuaded. You on the other hand can persuade anyone who hasn’t joined him to stay at your karate school. Can you prevent your friends from leaving your karate school to join the other guy’s karate school by persuading those who have a lot of friends and prevent the persuasion from someone with little friends to someone with a lot of friends?',
     gen: function() {return graph_zachary;},
     quiz: {
         title: 'Closeness',
