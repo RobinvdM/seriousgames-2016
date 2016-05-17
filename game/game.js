@@ -56,6 +56,7 @@ var game = {
     initDifficulty() {
         game.resetGameState('difficulty');
         $('#intro').show();
+        $('#leaderboard_screen').hide();
         game.elem.html('');
 
         var list = $('#intro #difficultyList');
@@ -223,7 +224,10 @@ var game = {
         return false;
     },
     end() {
-        alert('Your score is: 999');
+        var score = Math.floor(Math.random()*20);
+        alert('Your score is: '+ score);
+        var username = $('#username').val();
+        game.leaderBoard.saveScore(username, score);
         game.elem.html('');
         $('#vaccsLeft').hide();
         game.quiz.display();
@@ -250,6 +254,7 @@ game.description.display = function() {
 // LEVELS ==================
 
 game.initLevel = function() {
+    $('#vaccsLeft').show();
     game.reset();
     game.initD3();
 };
@@ -263,9 +268,10 @@ game.quiz.handleAnswer = function(is_correct) {
         if (is_correct) {
             elem.css('background-color', 'green');
             alert('Well done!');
+            $('#quiz').hide();
+            game.initDifficulty();
         } else {
             elem.css('background-color', 'red');
-            alert('Nah...');
         }
     }
 }
@@ -302,7 +308,6 @@ game.leaderBoard.saveScore = function(username, score) {
 };
 
 game.leaderBoard.display = function() {
-    game.elem.html('<h1>Leader board</h1>');
     var scores = game.leaderBoard.get();
     scores = _.map(scores, function(num, key) { return [num, key] });
     scores = _.sortBy(scores, function(a) {return -a[0]});
@@ -313,8 +318,11 @@ game.leaderBoard.display = function() {
                     score[1]+'</span> <span class="score">'
                     +score[0]+'</span></li>');
     });
-    game.elem.append(list);
-    game.elem.append($('<button>To main menu</button>').click(game.initDifficulty));
+    var leaderBoard = $('#leaderboard_screen');
+    leaderBoard.show();
+    $('.content', leaderBoard).html('');
+    $('.content', leaderBoard).append(list);
+    $('.content', leaderBoard).append($('<button>To main menu</button>').click(game.initDifficulty));
 };
 
 // GRAPHS ==================
