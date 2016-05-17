@@ -339,13 +339,13 @@ game.graphs.karate = {
     description: 'You got into a fight with a friend last karate lesson. He now wants to leave the karate school. You obviously don’t want to join him at the other karate school and you don’t want your other friends to join him. He can only let people join by means of mouth to mouth communication. This means he can only persuade friends from friends that he already persuaded. You on the other hand can persuade anyone who hasn’t joined him to stay at your karate school. Can you prevent your friends from leaving your karate school to join the other guy’s karate school by persuading those who have a lot of friends and prevent the persuasion from someone with little friends to someone with a lot of friends?',
     gen: function() {return graph_zachary;},
     quiz: {
-        title: 'Closeness',
-        description: 'Description of Closeness',
-        question: 'Which node has the highest closeness:',
+        title: 'Degree Centrality',
+        description: 'A form of centrality is degree centrality. This means that the centrality of a node, or in this case a classmate, is determined by the number of connections this classmate has with other classmates. It is important to escort these classmates out of the classroom first, as they have a very high chance of hearing of your mistake and tell a lot of other classmates about it. In the following quiz, choose the nodes with the highest degree centrality.',
+        question: 'Which node has the highest degree centrality:',
         correct: 1,
-        a1: '<img>',
-        a2: '<img>',
-        a3: '<img>'
+        a1: '<img src="degreecentrality1.png" width="300" height="255">',
+        a2: '<img src="degreecentrality2.png" width="300" height="255">',
+        a3: '<img src="degreecentrality3.png" width="300" height="255">'
     }
 };
 
@@ -387,13 +387,13 @@ game.graphs.tree = {
         return {'nodes': graph.nodes, 'links': graph.edges};
     },
     quiz: {
-        title: 'Cycles',
-        description: 'No cycles here. Cycles blah blah blah',
-        question: 'How many cycles does this graph have: <img>',
+        title: 'Tree Graph',
+        description: 'A tree graph is a special type of graph in which there is only a single route between two different nodes, or in this case members of the secret society. This means that members can be easily isolated by removing the well connected nodes at first and the neighbours of the members who know your secret later',
+        question: 'Which node should be removed to prevent further spreading of your true identity if member A new your secret? <img src="treegraph.png">',
         correct: 1,
-        a1: '0',
-        a2: '1',
-        a3: '2'
+        a1: 'B',
+        a2: 'C',
+        a3: 'D'
     }
 };
 
