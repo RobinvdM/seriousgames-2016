@@ -38,6 +38,9 @@ button {
 button:hover {
     background: #BAFFC4;
 }
+button:active {
+    background: #BAFFC4;
+}
 button#leaderboard {
     background-image: url(leaderboardIcon.png);
     background-size: 35px;
