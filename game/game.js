@@ -354,11 +354,11 @@ game.graphs.friends = {
     description: 'Oh no, you spilled water from your water bottle all over your table and some of your books became wet. Luckily no one saw you spill the water, so there is still time to cover up your accident. As running with towels trough the classroom would attract to much attention, you decide to escort people out of the classroom. However this takes time and it is only a matter of time before someone discovers your mistake. When someone sees your mistake he will start telling his friends about it, who in turn will tell it to their friends. Can you prevent your classmates from learning about your mistake by escorting those who have a lot of friends and prevent the news from spreading to someone with little friends to someone with a lot of friends?',
     gen: function() {return connected_cliques([4,5,4, 5], 0.3);},
     quiz: {
-        title: 'Centrality',
+        title: 'Degree Centrality',
         description: 'A form of centrality is degree centrality. This means that the centrality of a node, or in this case a classmate, is determined by the number of connections this classmate has with other classmates. It is important to escort these classmates out of the classroom first, as they have a very high chance of hearing of your mistake and tell a lot of other classmates about it. In the following quiz, choose the nodes with the highest degree centrality.',
         question: 'Which node has the highest degree centrality:',
         correct: 1,
-        a1: '<img src="degreecentrality1.png">',
+        a1: '<img src="degreecentrality1.png" width="314" height="268">',
         a2: '<img src="degreecentrality2.png">',
         a3: '<img src="degreecentrality3.png">'
     }
