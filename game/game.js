@@ -356,7 +356,7 @@ game.graphs.friends = {
     quiz: {
         title: 'Degree Centrality',
         description: 'A form of centrality is degree centrality. This means that the centrality of a node, or in this case a classmate, is determined by the number of connections this classmate has with other classmates. It is important to escort these classmates out of the classroom first, as they have a very high chance of hearing of your mistake and tell a lot of other classmates about it. In the following quiz, choose the nodes with the highest degree centrality.',
-        question: 'Which node has the highest degree centrality:',
+        question: 'Which node has the highest degree centrality?',
         correct: 1,
         a1: '<img src="degreecentrality1.png" width="300" height="255">',
         a2: '<img src="degreecentrality2.png" width="300" height="255">',
@@ -389,7 +389,7 @@ game.graphs.tree = {
     quiz: {
         title: 'Tree Graph',
         description: 'A tree graph is a special type of graph in which there is only a single route between two different nodes, or in this case members of the secret society. This means that members can be easily isolated by removing the well connected nodes at first and the neighbours of the members who know your secret later',
-        question: 'Which node should be removed to prevent further spreading of your true identity if member A new your secret? <img src="treegraph.png">',
+        question: 'Which node should be removed to prevent further spreading of your true identity if member A knew your secret? <img src="treegraph.png">',
         correct: 1,
         a1: 'B',
         a2: 'C',
