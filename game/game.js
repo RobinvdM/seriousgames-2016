@@ -8,17 +8,17 @@ var game = {
     },
     levels: {
         1: {
-            label: 'Easy',
+            label: 'Tricky',
             nodes: 20,
             vaccinations: 3
         },
         2: {
-            label: 'Medium',
+            label: 'Hard',
             nodes: 30,
             vaccinations: 4
         },
         3: {
-            label: 'Hard',
+            label: 'Insane',
             nodes: 40,
             vaccinations: 4
         }
@@ -320,7 +320,7 @@ game.leaderBoard.display = function() {
     });
     var leaderBoard = $('#leaderboard_screen');
     leaderBoard.show();
-    $('.content', leaderBoard).html('');
+    $('.content', leaderBoard).html('<h3>The very best players are.....</h3>');
     $('.content', leaderBoard).append(list);
     $('.content', leaderBoard).append($('<button>To main menu</button>').click(game.initDifficulty));
 };
@@ -366,9 +366,9 @@ game.graphs.friends = {
         description: 'A form of centrality is degree centrality. This means that the centrality of a node, or in this case a friend, is determined by the number of connections this friend has with his friends. It is important to persuade these friends first, as they have a very high chance of being persuaded by the friend you have a fight with and are able to persuade lots of other friends. In the following quiz, choose the nodes with the highest degree centrality.',
         question: 'Which node has the highest degree centrality?',
         correct: 1,
-        a1: '<img src="degreecentrality1.png" width="300" height="255">',
-        a2: '<img src="degreecentrality2.png" width="300" height="255">',
-        a3: '<img src="degreecentrality3.png" width="300" height="255">'
+        a1: '<img src="degreecentrality1.png" width="290" height="255">',
+        a2: '<img src="degreecentrality2.png" width="290" height="255">',
+        a3: '<img src="degreecentrality3.png" width="290" height="255">'
     }
 };
 
@@ -381,9 +381,9 @@ game.graphs.book = {
         description: 'Description of Closeness',
         question: 'Which node has the highest closeness:',
         correct: 1,
-        a1: '<img>',
-        a2: '<img>',
-        a3: '<img>'
+        a1: '<img src="degreecentrality1.png" width="290" height="255">',
+        a2: '<img src="degreecentrality2.png" width="290" height="255">',
+        a3: '<img src="degreecentrality3.png" width="290" height="255">'
     }
 };
 
@@ -417,9 +417,9 @@ game.graphs.random = {
         description: 'Description of Closeness',
         question: 'Which node has the highest closeness:',
         correct: 1,
-        a1: '<img>',
-        a2: '<img>',
-        a3: '<img>'
+        a1: '<img src="degreecentrality1.png" width="290" height="255">',
+        a2: '<img src="degreecentrality2.png" width="290" height="255">',
+        a3: '<img src="degreecentrality3.png" width="290" height="255">'
     }
 };
 

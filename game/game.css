@@ -15,9 +15,11 @@ h1 {
     font-size: 100px;
     color: #fff;
     letter-spacing: 8px;
+    text-shadow: -1px 0 #298FCC, 0 1px #298FCC, 1px 0 #298FCC, 0 -1px #298FCC;
+    margin-bottom: 25px;
 }
 h3 {
-
+    font-weight: bold;
 }
 
 button {
@@ -27,7 +29,7 @@ button {
     font-weight: bold;
     border:2px solid #3f8e53;
     border-radius: 8px;
-    padding: 8px 12px;
+    padding: 8px 18px;
     margin-right: 5px;
     font-size: inherit;
     font-family: inherit;
@@ -41,6 +43,14 @@ button:hover {
 button:focus {
     background: #BAFFC4;
 }
+
+input {
+    padding: 8px 12px;
+    border:2px solid #3f8e53;
+    font-size: inherit;
+    font-family: inherit;
+}
+
 button#leaderboard {
     background-image: url(leaderboardIcon.png);
     background-size: 35px;
@@ -87,4 +97,28 @@ button#leaderboard {
 }
 #vaccsLeft:empty {
     display: none;
+}
+
+#level_desc div,
+#quiz div,
+#leaderboard_screen .content {
+    max-width: 1024px;
+    line-height: 1.4;
+    margin: 0 auto;
+
+    background: rgba(255,255,255,0.5);
+    padding: 25px;
+    border-radius: 25px;
+    margin-bottom: 10px;
+}
+#leaderboard_screen .content {
+    text-align: left;
+}
+#level_desc button {
+    padding-left: 25px;
+    padding-right: 25px;
+}
+
+.answers {
+    padding-top: 20px;
 }
