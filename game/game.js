@@ -409,9 +409,9 @@ game.graphs.random = {
         description: 'Description of Closeness',
         question: 'Which node has the highest closeness:',
         correct: 1,
-        a1: '<img>',
-        a2: '<img>',
-        a3: '<img>'
+        a1: '<img scr="degreecentrality1.png">',
+        a2: '<img scr="degreecentrality2.png">',
+        a3: '<img scr="degreecentrality3.png">'
     }
 };
 
