@@ -388,7 +388,7 @@ game.graphs.tree = {
     },
     quiz: {
         title: 'Tree Graph',
-        description: 'A tree graph is a special type of graph in which there is only a single route between two different nodes, or in this case members of the secret society. This means that members can be easily isolated by removing the well connected nodes at first and the neighbours of the members who know your secret later',
+        description: 'A tree graph is a special type of graph in which there is only a single route between two different nodes, or in this case members of the secret society. This means that members can be easily isolated by removing the well connected nodes at first and the neighbours of the members who know your secret later.',
         question: 'Which node should be removed to prevent further spreading of your true identity if member A knew your secret? <img src="treegraph.png">',
         correct: 1,
         a1: 'B',
