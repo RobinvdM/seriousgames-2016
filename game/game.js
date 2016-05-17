@@ -3,7 +3,8 @@ var game = {
     config: {
         width: 960,
         height: 800,
-        difficulty: 1
+        difficulty: 1,
+        graph: undefined
     },
     levels: {
         1: {
@@ -33,11 +34,14 @@ var game = {
         rounds: 0
     },
     init() {
+        $('#level_desc').hide();
+        $('#quiz').hide();
+
         game.elem = $('#game');
         $('#intro .level').click(function() {
             var graph_name = $(this).data('graph');
-            $('#intro').hide();
-            game.initLevel(graph_name);
+            game.config.graph = game.graphs[graph_name];
+            game.description.display();
         });
         $('#leaderboard').click(function() {
             $('#intro').hide();
@@ -79,8 +83,8 @@ var game = {
         var level = game.levels[game.config.difficulty];
         game.setVaccsLeft(level.vaccinations);
     },
-    initD3(graph_name) {
-        var graph = game.graphs[graph_name].gen();
+    initD3() {
+        var graph = game.config.graph.gen();
         game.links = graph.links;
         game.nodes = graph.nodes;
 
@@ -223,13 +227,37 @@ var game = {
     }
 };
 
-// LEVELS ==================
+// LEVEL DESCRIPTION =======
+game.description = {}
 
-game.initLevel = function(graph_name) {
-    game.reset();
-    game.initD3(graph_name);
+game.description.display = function() {
+    $('#intro').hide();
+    var desc_el = $('#level_desc');
+    desc_el.show();
+    var graph = game.config.graph;
+    $('h3', desc_el).text(graph.title);
+    $('div', desc_el).html(graph.description);
+    $('.start', desc_el).click(function() {
+        desc_el.hide();
+        game.elem.show();
+        game.initLevel();
+    });
 };
 
+// LEVELS ==================
+
+game.initLevel = function() {
+    game.reset();
+    game.initD3();
+};
+
+// AFTER GAME SCREEN ======
+
+// QUIZ ====================
+game.quiz = {}
+game.quiz.display = function() {
+    game.elem.hide();
+}
 
 // LEADERBOARD =============
 game.leaderBoard = {
@@ -265,38 +293,92 @@ game.leaderBoard.display = function() {
 // GRAPHS ==================
 game.graphs = {}
 game.graphs.toy = {
+    title: 'Toy',
     description: 'This a toy graph',
-    gen: function() {return graph_toy}
+    gen: function() {return graph_toy},
+    quiz: {
+        title: '',
+        description: '',
+        question: '',
+        a1: '',
+        a2: '',
+        a3: ''
+    }
 };
 
 game.graphs.karate = {
-    description: 'Zachary karate club',
-    gen: function() {return graph_zachary;}
+    title: 'Zachary karate club',
+    description: 'Zachary karate club description',
+    gen: function() {return graph_zachary;},
+    quiz: {
+        title: 'Closeness',
+        description: 'Description of Closeness',
+        question: 'Which node has the highest closeness:',
+        a1: '<img>',
+        a2: '<img>',
+        a3: '<img>'
+    }
 };
 
 game.graphs.friends = {
-    description: 'Friends',
-    gen: function() {return connected_cliques([4,5,4, 5], 0.3);}
+    title: 'Friends',
+    description: 'Friends description',
+    gen: function() {return connected_cliques([4,5,4, 5], 0.3);},
+    quiz: {
+        title: 'Closeness',
+        description: 'Description of Closeness',
+        question: 'Which node has the highest closeness:',
+        a1: '<img>',
+        a2: '<img>',
+        a3: '<img>'
+    }
 };
 
 game.graphs.book = {
-    description: 'Miserables',
-    gen: function() {return graph_miserables;}
+    title: 'Book heroes',
+    description: 'Miserables description',
+    gen: function() {return graph_miserables;},
+    quiz: {
+        title: 'Closeness',
+        description: 'Description of Closeness',
+        question: 'Which node has the highest closeness:',
+        a1: '<img>',
+        a2: '<img>',
+        a3: '<img>'
+    }
 };
 
 game.graphs.tree = {
-    description: 'Tree',
+    title: 'Spies',
+    description: 'A secret organisation where spies know only their direct boss',
     gen: function() {
         var graph = randomgraph.BarabasiAlbert(30, 1, 1);
         return {'nodes': graph.nodes, 'links': graph.edges};
+    },
+    quiz: {
+        title: 'Cycles',
+        description: 'No cycles here. Cycles blah blah blah',
+        question: 'How many cycles does this graph have: <img>',
+        a1: '0',
+        a2: '1',
+        a3: '2'
     }
 };
 
 game.graphs.random = {
-    description: 'Random',
+    title: 'Preferential attachment',
+    description: 'Random graph that...',
     gen: function() {
         var graph = randomgraph.BarabasiAlbert(30, 2, 2);
         return {'nodes': graph.nodes, 'links': graph.edges};
+    },
+    quiz: {
+        title: 'Closeness',
+        description: 'Description of Closeness',
+        question: 'Which node has the highest closeness:',
+        a1: '<img>',
+        a2: '<img>',
+        a3: '<img>'
     }
 };
 
