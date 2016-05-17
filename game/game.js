@@ -29,7 +29,7 @@ var game = {
     },
     stats: {
         vaccsLeft: 0,
-        invectedNodes: [],
+        infectedNodes: [],
         rounds: 0
     },
     init() {
@@ -136,7 +136,7 @@ var game = {
             game.setVaccsLeft(game.stats.vaccsLeft - 1);
 
         // Remove node if not infected
-        if (game.stats.invectedNodes.indexOf(n.index) > -1) return;
+        if (game.stats.infectedNodes.indexOf(n.index) > -1) return;
 
         game.d3.node[0][n.index].setAttribute('class', 'node hidden');
 
@@ -158,7 +158,7 @@ var game = {
     spreadDisease() {
         game.stats.rounds++;
 
-        if (game.stats.invectedNodes.length == 0) {
+        if (game.stats.infectedNodes.length == 0) {
             do {
                 // Choose random node
                 var n = game.nodes[
@@ -170,16 +170,16 @@ var game = {
 
             node.setAttribute('class', 'node infected');
             
-            game.stats.invectedNodes.push(n);
+            game.stats.infectedNodes.push(n);
         } else {
-            game.stats.invectedNodes.forEach(function(element) {
+            game.stats.infectedNodes.forEach(function(element) {
                 var neighbour = game.getNeighbourNode(element);
 
                 if (neighbour === null) return;
 
                 game.d3.node[0][neighbour].setAttribute('class', 'node infected');
 
-                game.stats.invectedNodes.push(neighbour);
+                game.stats.infectedNodes.push(neighbour);
             });
 
             if (! game.hasPossibleInfections())
@@ -196,7 +196,7 @@ var game = {
 
             neighbour = e.source.index != node ? e.source.index : e.target.index;
 
-            if (game.stats.invectedNodes.indexOf(neighbour) > -1) {
+            if (game.stats.infectedNodes.indexOf(neighbour) > -1) {
                 neighbour = null;
                 continue;
             }
@@ -210,10 +210,10 @@ var game = {
         for (var i = 0; i < game.links.length; i++) {
             var e = game.links[i];
 
-            if (game.stats.invectedNodes.indexOf(e.source.index) < 0 && game.stats.invectedNodes.indexOf(e.target.index)) continue;
+            if (game.stats.infectedNodes.indexOf(e.source.index) < 0 && game.stats.infectedNodes.indexOf(e.target.index) < 0) continue;
 
-            if (game.stats.invectedNodes.indexOf(e.source.index) < 0) return true;
-            if (game.stats.invectedNodes.indexOf(e.target.index) < 0) return true;
+            if (game.stats.infectedNodes.indexOf(e.source.index) < 0) return true;
+            if (game.stats.infectedNodes.indexOf(e.target.index) < 0) return true;
         }
 
         return false;
