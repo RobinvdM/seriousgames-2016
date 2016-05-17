@@ -308,7 +308,7 @@ game.graphs.toy = {
 
 game.graphs.karate = {
     title: 'Zachary karate club',
-    description: 'Zachary karate club description',
+    description: 'You got into a fight with a friend last karate lesson. He now wants to leave the karate school. You obviously don’t want to join him at the other karate school and you don’t want your other friends to join him. He can only let people join by means of mouth to mouth communication. This means he can only persuade friends from friends that he already persuaded. You on the other hand can persuade anyone who hasn’t joined him to stay at your karate school. Can you prevent your friends from leaving your karate school to join the other guy’s karate school by persuading those who have a lot of friends and prevent the persuasion from someone with little friends to someone with a lot of friends?',
     gen: function() {return graph_zachary;},
     quiz: {
         title: 'Closeness',
@@ -349,8 +349,8 @@ game.graphs.book = {
 };
 
 game.graphs.tree = {
-    title: 'Spies',
-    description: 'A secret organisation where spies know only their direct boss',
+    title: 'Secret society',
+    description: 'You work as an undercover cop in a secret society. But someone in the society has learned of your secret identity. He is telling the members he knows of your true identity who will in turn tell it to the members they know. Can you prevent the spreading of your true identity by arresting members who have a lot of connections to other members and prevent the spreading of this information from members with little connections to member’s whit a lot of connections?',
     gen: function() {
         var graph = randomgraph.BarabasiAlbert(30, 1, 1);
         return {'nodes': graph.nodes, 'links': graph.edges};
